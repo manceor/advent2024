@@ -1,0 +1,37 @@
+int main() {
+    int sum = 0;
+    int j = 0;
+    int running = 0;
+    int running_last;
+    vector<int> vfirst, vsecond;
+    int first, second;
+    for (std::string line; std::getline(std::cin, line);) {
+        std::istringstream iss(line);
+        iss >> first >> second;
+        vfirst.push_back(first);
+        vsecond.push_back(second);
+    }
+    sort(vfirst.begin(), vfirst.end());
+    sort(vsecond.begin(), vsecond.end());
+    for(int i = 0; i < vfirst.size(); i++){
+            if(i > 0 && vfirst.at(i) == vfirst.at(i - 1)){
+                sum += running_last;
+                continue;
+            }
+            while(vfirst.at(i) >= vsecond.at(j)){
+                if (vfirst.at(i) > vsecond.at(j)){
+                    j++;
+                }
+                else if(vfirst.at(i) == vsecond.at(j)){
+                    running++;
+                    j++;
+                }
+                
+            }
+        sum += vfirst.at(i) * running;
+        running_last = running;
+        running = 0;
+    }
+    cout << sum << endl;
+    return 0;
+}
